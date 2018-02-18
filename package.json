@@ -1,0 +1,23 @@
+{
+  "name": "gh-user-change",
+  "version": "1.0.0",
+  "description": "Too lazy to do $ git remote set-url https://github.com/<new-username>/repo.git",
+  "main": "gh-user-change",
+  "bin":{
+    "gh-user-change":"gh-user-change.sh"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prdpx7/gh-user-change/"
+  },
+  "keywords": [
+    "github",
+    "username-change",
+    "lazyness"
+  ],
+  "author": "Pradeep Khileri <pradeepchoudhary009@gmail.com> (https://zuck007.github.io)",
+  "license": "MIT"
+}
