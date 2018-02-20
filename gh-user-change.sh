@@ -25,8 +25,8 @@ function fix_remote_path() {
     git_dir=$1
     old_user=$2
     new_user=$3
+    echo -e "-----$git_dir------"
     old_remote_url=`git -C $1 remote get-url origin`
-
     if [[ $old_remote_url =~ .*$old_user.* ]];
     then
         echo -e "\nCURRENTLY IN\n$1...."
@@ -34,6 +34,22 @@ function fix_remote_path() {
         echo -e "\nSetting git remote url...\n$new_remote_url\n"
         git -C $1 remote set-url origin $new_remote_url
     fi
+}
+function fix_file_changes() {
+    git_dir_path=$1
+    old_user=$2
+    new_user=$3
+    echo -e "--------$git_dir_path----------"
+    # shopt -s globstar
+    # echo $git_dir_path
+    for file in $git_dir_path/* ;
+    do
+        if [[ -f $file && $file =~ .*\.(json|md|py|js|sh|c|cpp|rb|java|txt|rst)$ ]];
+        then
+            echo $file
+            sed -i -e "s/$old_user/$new_user/g" $file
+        fi
+    done
 }
 function remove_trailing_slash() {
     eval dir_path="$1"
@@ -46,7 +62,7 @@ function search_git_dir() {
     remove_trailing_slash $1
     old_user=$2
     new_user=$3
-    for git_dir in $dir_root_path/*;
+    for git_dir in `ls -d $dir_root_path/*`;
     do
         if [ -d "$git_dir" ];
         then
@@ -54,7 +70,9 @@ function search_git_dir() {
             status_code=$?
             if [ $status_code == 0 ];
             then
+                # echo $git_dir
                 fix_remote_path $git_dir $old_user $new_user
+                fix_file_changes $git_dir $old_user $new_user
             fi;
         fi
     done

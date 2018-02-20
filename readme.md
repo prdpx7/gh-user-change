@@ -1,5 +1,5 @@
 # gh-user-change
-> Too lazy to do  `git remote set-url https://github.com/<new-username>/repo.git`
+> Too lazy to do find/replace of username on all git files & `git remote set-url https://github.com/<new-username>/repo.git`
 
 ## Installation
 * `npm install -g gh-user-change`
